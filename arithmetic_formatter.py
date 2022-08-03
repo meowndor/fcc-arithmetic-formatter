@@ -16,8 +16,8 @@ def arithmetic_arranger(problems, showanswers=False):
             exit()
 
         elif len(splitted[1]) > 4:
-            print(splitted[1],"\nError: Numbers cannot be more than four digits")
-            exit()
+            print(splitted[1], "\nError: Numbers cannot be more than four digits")
+            exit()fdf
 
     for i in problems: #problems is 'list' type
         splitted = i.split("+")
