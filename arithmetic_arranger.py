@@ -27,13 +27,13 @@ def arithmetic_arranger(problems, showanswers=False):
         splitted = i.split(operator(i))
 
         # traceback error for more than 4 digits
-        if len(splitted[0]) > 4:
-            print(splitted[0],
+        if len(splitted[0].rstrip()) > 4:
+            print(splitted[0].rstrip(),
                   "\nError: Numbers cannot be more than four digits")
             exit()
 
-        elif len(splitted[1]) > 4:
-            print(splitted[1],
+        elif len(splitted[1].lstrip()) > 4:
+            print(splitted[1].lstrip(),
                   "\nError: Numbers cannot be more than four digits")
             exit()
 
@@ -59,19 +59,24 @@ def arithmetic_arranger(problems, showanswers=False):
 
         if (operand2 - operand1) == 1:
             maxlen = maxlen + 1
+        if maxlen == operand1:
+            maxlen = maxlen + 2
 
         firstline += space * \
             (maxlen - operand1) + str(splitted[0]) + "    "
         secondline += operator(i) + space + space*(maxlen - 2 -
                                                    len(str(splitted[1]))) + str(splitted[1]) + "    "
         theresult = space*(maxlen-len(str(result))) + str(result)
-        theanswer += theresult + "    "
+
+        if showanswers == True:
+            theanswer += theresult + "    "
+
         lines += "-"*maxlen + "    "
 
-    print(firstline)
-    print(secondline)
-    print(lines)
+    arranged_problems = ""
     if showanswers == True:
-        print(theanswer)
+        arranged_problems = f"{firstline}\n{secondline}\n{lines}\n{theanswer}"
     else:
-        None
+        arranged_problems = f"{firstline}\n{secondline}\n{lines}"
+
+    return arranged_problems
