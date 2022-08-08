@@ -14,28 +14,37 @@ def operator(x):
 
 
 def arithmetic_arranger(problems, showanswers=False):
+    arranged_problems = ""
 
     # check number of problems
     if len(problems) > 5:
-        print("Error: Too many problems")
-        print("Number of problems should have less than 5")
-        exit()
+        arranged_problems = "Error: Too many problems."
+        return arranged_problems
+        # print("Number of problems should have less than 5")
+        # exit()
 
     # check if there's more than 4 digits
     for i in problems:  # problems is in 'list' type
+
+        # ---[TODO]----
+        if not bool(re.search("\+|-", i.split()[1])) == True:
+            arranged_problems = "Error: Operator must be '+' or '-'."
+            return arranged_problems
 
         splitted = i.split(operator(i))
 
         # traceback error for more than 4 digits
         if len(splitted[0].rstrip()) > 4:
-            print(splitted[0].rstrip(),
-                  "\nError: Numbers cannot be more than four digits")
-            exit()
+            arranged_problems = f"Error: Numbers cannot be more than four digits."
+            return arranged_problems
 
         elif len(splitted[1].lstrip()) > 4:
-            print(splitted[1].lstrip(),
-                  "\nError: Numbers cannot be more than four digits")
-            exit()
+            arranged_problems = f"Error: Numbers cannot be more than four digits."
+            return arranged_problems
+
+        if bool(re.search("[a-z]", splitted[0].rstrip())) or bool(re.search("[a-z]", splitted[1].rstrip())) == True:
+            arranged_problems = f"Error: Numbers must only contain digits."
+            return arranged_problems
 
     theanswer = ""
     firstline = ""
@@ -73,10 +82,12 @@ def arithmetic_arranger(problems, showanswers=False):
 
         lines += "-"*maxlen + "    "
 
-    arranged_problems = ""
     if showanswers == True:
-        arranged_problems = f"{firstline}\n{secondline}\n{lines}\n{theanswer}"
+        arranged_problems = f"{firstline.rstrip()}\n{secondline.rstrip()}\n{lines.rstrip()}\n{theanswer.rstrip()}"
     else:
-        arranged_problems = f"{firstline}\n{secondline}\n{lines}"
+        arranged_problems = f"{firstline.rstrip()}\n{secondline.rstrip()}\n{lines.rstrip()}"
 
     return arranged_problems
+
+
+# print(arithmetic_arranger(['44 + 815', '909 + 2']))
